@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  识字 · 主标记
+  靛青布面 + 宋体「字」：一枚书封。
+  画布 108×108 与 Android 自适应图标同网格；字形墨迹 56×57.5dp 居中。
+  注意：<text> 依赖 Songti SC（macOS），色值见 docs/brand.md。
+-->
+<svg xmlns="http://www.w3.org/2000/svg" width="108" height="108" viewBox="0 0 108 108">
+  <rect width="108" height="108" fill="#185FA5"/>
+  <text x="54.25" y="50.50" font-size="56" font-weight="bold"
+        font-family="Songti SC, STSong, Noto Serif CJK SC, Source Han Serif SC, serif"
+        fill="#F6F1E4" text-anchor="middle" dominant-baseline="central">字</text>
+</svg>

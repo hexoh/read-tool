@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>识字 · 图标与启动页</title>
+<style>
+  :root{
+    --bg:#FAF8F4; --paper:#F6F1E4; --primary:#185FA5; --primary-dim:#E6F1FB;
+    --ink:#2C2C2A; --ink2:#5F5E5A; --ink3:#8C8778; --line:#E3DAC6; --warn:#BA7517;
+    --serif:"Songti SC","STSong","Noto Serif CJK SC","Source Han Serif SC",serif;
+    --sans:"PingFang SC","Hiragino Sans GB","Noto Sans CJK SC","Microsoft YaHei",sans-serif;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--sans);
+       font-size:14px;line-height:1.75;-webkit-font-smoothing:antialiased}
+  .wrap{max-width:960px;margin:0 auto;padding:56px 28px 96px}
+  header{border-bottom:1px solid var(--line);padding-bottom:28px;margin-bottom:8px}
+  h1{font-family:var(--serif);font-size:32px;font-weight:600;margin:0 0 10px;letter-spacing:2px}
+  .sub{color:var(--ink2);font-size:13px;margin:0}
+  h2{font-size:13px;font-weight:600;letter-spacing:1.5px;color:var(--ink3);
+     margin:48px 0 16px;text-transform:none}
+  h2 span{color:var(--line);margin-left:8px;letter-spacing:0}
+  p{margin:0 0 12px;color:var(--ink2);font-size:13px}
+  .card{background:#fff;border:1px solid var(--line);border-radius:14px;padding:28px}
+  .row{display:flex;gap:24px;flex-wrap:wrap;align-items:flex-start}
+  .note{font-size:12px;color:var(--ink3);line-height:1.7}
+  code{font-family:ui-monospace,Menlo,monospace;font-size:12px;background:var(--primary-dim);
+       color:var(--primary);padding:1px 5px;border-radius:4px}
+
+  /* 尺寸阶梯 */
+  .ladder{display:flex;gap:32px;align-items:flex-end;flex-wrap:wrap}
+  .ladder figure{margin:0;text-align:center}
+  .ladder figcaption{font-size:11px;color:var(--ink3);margin-top:10px;letter-spacing:.5px}
+
+  /* 桌面形状 */
+  .masks{display:flex;gap:36px;flex-wrap:wrap}
+  .masks figure{margin:0;text-align:center}
+  .masks figcaption{font-size:11px;color:var(--ink3);margin-top:12px}
+
+  /* 桌面情境 */
+  .strips{display:flex;gap:20px;flex-wrap:wrap}
+  .strip{flex:1 1 300px;min-width:280px;border-radius:16px;padding:26px 20px;
+         display:flex;gap:14px;align-items:center;justify-content:center;border:1px solid transparent}
+  .strip.light{background:linear-gradient(160deg,#F3EFE6,#E7E1D4)}
+  .strip.dark{background:linear-gradient(160deg,#232830,#14171B)}
+  .ghost{width:52px;height:52px;border-radius:29%;background:rgba(140,135,120,.16)}
+  .strip.dark .ghost{background:rgba(255,255,255,.10)}
+  .launch{display:flex;flex-direction:column;align-items:center;gap:7px;width:60px}
+  .launch span{font-size:10px;color:var(--ink2)}
+  .strip.dark .launch span{color:#CFCABE}
+  .launch svg{filter:drop-shadow(0 2px 6px rgba(44,44,42,.18))}
+
+  /* 手机 */
+  .phones{display:flex;gap:32px;flex-wrap:wrap;justify-content:center}
+  .phone{width:270px;height:562px;border-radius:34px;background:var(--bg);
+         border:9px solid #2C2C2A;box-shadow:0 14px 34px rgba(44,44,42,.14);
+         position:relative;overflow:hidden;display:flex;flex-direction:column;
+         align-items:center;justify-content:center}
+  .phone .bar{position:absolute;top:0;left:50%;transform:translateX(-50%);
+              width:76px;height:5px;background:#2C2C2A;border-radius:0 0 6px 6px;opacity:.9}
+  .brand-title{font-family:var(--serif);font-size:22px;letter-spacing:4px;margin-top:17px}
+  .rule{width:24px;height:1px;background:var(--line);margin:10px 0}
+  .tagline{font-size:11px;color:var(--ink3)}
+  .bottombar{position:absolute;bottom:34px;left:0;right:0;display:flex;flex-direction:column;
+             align-items:center;gap:9px}
+  .track{width:96px;height:2px;border-radius:1px;background:var(--line);overflow:hidden;position:relative}
+  .track i{position:absolute;top:0;left:0;height:100%;width:40%;border-radius:1px;background:var(--primary);
+           animation:slide 1.5s ease-in-out infinite}
+  @keyframes slide{0%{transform:translateX(-100%)}100%{transform:translateX(250%)}}
+  .boot{font-size:10px;color:var(--ink3)}
+
+  /* 组合版 */
+  .lockups{display:flex;flex-direction:column;gap:26px}
+  .lockup{background:var(--bg);border:1px solid var(--line);border-radius:12px;
+          padding:22px 26px;display:flex;justify-content:center}
+
+  /* 否决稿 */
+  .rejects{display:flex;gap:26px;flex-wrap:wrap}
+  .rejects figure{margin:0;width:150px}
+  .rejects figcaption{font-size:11px;color:var(--warn);margin-top:10px;line-height:1.6}
+  .dim{opacity:.95}
+
+  table{width:100%;border-collapse:collapse;font-size:12.5px}
+  th,td{text-align:left;padding:9px 10px;border-bottom:1px solid var(--line);vertical-align:top}
+  th{color:var(--ink3);font-weight:500;font-size:11.5px;letter-spacing:.5px}
+  td:first-child{white-space:nowrap;color:var(--ink)}
+  .swatch{display:inline-block;width:11px;height:11px;border-radius:3px;margin-right:7px;vertical-align:-1px}
+  footer{margin-top:56px;padding-top:22px;border-top:1px solid var(--line);font-size:11.5px;color:var(--ink3)}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header>
+    <h1>识字 · 一枚靛青的字印</h1>
+    <p class="sub">应用图标与启动页 ｜ v1.0 ｜ 2026-11-18 ｜ 规格见 <code>docs/brand.md</code></p>
+  </header>
+
+  <h2>主标记<span>/ 靛青布面，纸白宋体一个「字」</span></h2>
+  <div class="card row" style="align-items:center">
+    <div id="hero"></div>
+    <div style="flex:1 1 320px;min-width:260px">
+      <p>不画相机、不画书本、不画取景框——那些在 48dp 上是糊的。只用两个最确定的东西：产品自己的靛青，和产品唯一的主角。</p>
+      <p class="note">宋体的横细竖粗、三角收笔，是刻本与书页的字形语言。主力用户在桌面上找这个 App，靠的是「认得出那个字」。</p>
+    </div>
+  </div>
+
+  <h2>尺寸阶梯<span>/ 最小 24dp，再小只留色块</span></h2>
+  <div class="card">
+    <div class="ladder">
+      <figure><div class="slot" data-s="176"></div><figcaption>176 dp</figcaption></figure>
+      <figure><div class="slot" data-s="96"></div><figcaption>96 dp</figcaption></figure>
+      <figure><div class="slot" data-s="72"></div><figcaption>72 dp</figcaption></figure>
+      <figure><div class="slot" data-s="48"></div><figcaption>48 dp · 桌面实际</figcaption></figure>
+      <figure><div class="slot" data-s="32"></div><figcaption>32 dp</figcaption></figure>
+      <figure><div class="slot" data-s="24"></div><figcaption>24 dp</figcaption></figure>
+    </div>
+    <p class="note" style="margin-top:22px">48dp 是桌面真实尺寸；再往下笔画开始粘连，24dp 是下限。</p>
+  </div>
+
+  <h2>三种桌面形状<span>/ 同一份图层，交给系统裁切</span></h2>
+  <div class="card">
+    <div class="masks">
+      <figure><div class="masked" data-shape="circle" data-s="112"></div><figcaption>圆形（原生桌面）</figcaption></figure>
+      <figure><div class="masked" data-shape="squircle" data-s="112"></div><figcaption>方圆（多数国产 ROM）</figcaption></figure>
+      <figure><div class="masked" data-shape="round" data-s="112"></div><figcaption>圆角矩形</figcaption></figure>
+      <figure><div class="masked" data-shape="mono" data-s="112"></div><figcaption>Android 13 主题图标</figcaption></figure>
+    </div>
+    <p class="note" style="margin-top:22px">前层只含字形（透明底），底色由 background 色层给出，所以任何 mask 都不会切到色块边缘；monochrome 层只被系统取 alpha 着色。</p>
+  </div>
+
+  <h2>桌面情境<span>/ 与别的图标并排时</span></h2>
+  <div class="card">
+    <div class="strips">
+      <div class="strip light">
+        <div class="ghost"></div><div class="ghost"></div><div class="ghost"></div>
+        <div class="launch"><div class="slot" data-s="52"></div><span>识字</span></div>
+      </div>
+      <div class="strip dark">
+        <div class="ghost"></div><div class="ghost"></div><div class="ghost"></div>
+        <div class="launch"><div class="slot" data-s="52"></div><span>识字</span></div>
+      </div>
+    </div>
+    <p class="note" style="margin-top:22px">靛青在浅色与深色壁纸上都立得住：靠明度差，不靠撞色。</p>
+  </div>
+
+  <h2>启动页<span>/ 只有这一页</span></h2>
+  <div class="card">
+    <div class="phones">
+      <div class="phone">
+        <div class="bar"></div>
+        <div class="masked" data-shape="brand" data-s="84"></div>
+        <div class="brand-title">识字</div>
+        <div class="rule"></div>
+        <div class="tagline">拍照 · 点字 · 听读音</div>
+        <div class="bottombar">
+          <div class="track"><i></i></div>
+          <div class="boot">正在装入字库与发音包…</div>
+        </div>
+      </div>
+    </div>
+    <p class="note" style="margin-top:24px">
+      首帧之前，Android 12+ 的系统启动画面是一屏<b>纯纸色</b>（图标设为透明 + 同色底，见 <code>values-v31/themes.xml</code>），
+      所以不会出现同一个标记先大后小跳一次。真正的启动页只有这一页，载入完成后 260ms 交叉淡出到首页；不做假延迟，也不做整页淡入。
+    </p>
+  </div>
+
+  <h2>组合版<span>/ 关于页、文档页眉、商店截图</span></h2>
+  <div class="card">
+    <div class="lockups">
+      <div class="lockup" id="lock-h"></div>
+      <div class="lockup" id="lock-v" style="padding:26px"></div>
+    </div>
+  </div>
+
+  <h2>否决稿<span>/ 留档，避免重复讨论</span></h2>
+  <div class="card">
+    <div class="rejects">
+      <figure><div class="dim" data-reject="monoline"></div><figcaption>单线重构：像「孑」加一点</figcaption></figure>
+      <figure><div class="dim" data-reject="frame"></div><figcaption>取景框 + 字：小尺寸框线咬笔画</figcaption></figure>
+      <figure><div class="dim" data-reject="paper"></div><figcaption>浅底靛字：浅壁纸上糊</figcaption></figure>
+      <figure><div class="dim" data-reject="ink"></div><figcaption>纯黑底：与品牌色无关</figcaption></figure>
+    </div>
+  </div>
+
+  <h2>色与资产</h2>
+  <div class="card">
+    <table>
+      <tr><th>用途</th><th>色值</th><th>来源</th></tr>
+      <tr><td>图标底 / 选中</td><td><span class="swatch" style="background:#185FA5"></span>#185FA5</td><td>Theme.kt <code>Primary</code></td></tr>
+      <tr><td>字形</td><td><span class="swatch" style="background:#F6F1E4"></span>#F6F1E4</td><td>Theme.kt <code>Paper</code></td></tr>
+      <tr><td>启动页底</td><td><span class="swatch" style="background:#FAF8F4"></span>#FAF8F4</td><td>Theme.kt <code>Bg</code></td></tr>
+      <tr><td>副标 / 载入文案</td><td><span class="swatch" style="background:#8C8778"></span>#8C8778</td><td>Theme.kt <code>Ink3</code></td></tr>
+    </table>
+    <p class="note" style="margin-top:20px">
+      母版：<code>design/logo/*.svg</code>；
+      导出：<code>bash design/render-icons.sh</code>；
+      产物：<code>res/mipmap-*dpi/ic_launcher_foreground.png</code>、<code>ic_launcher_monochrome.png</code>、<code>design/store/play-icon-512.png</code>。
+    </p>
+  </div>
+
+  <footer>识字 read-tool ｜ 本页为设计预览，图标与启动页已实装到 Android 工程并在模拟器验证。</footer>
+</div>
+
+<script>
+// 图标 SVG（108 网格）：靛青底 + 纸白宋体「字」，字形按墨迹外框居中
+function mark(size){
+  return `<svg width="${size}" height="${size}" viewBox="0 0 108 108" aria-label="识字">
+    <rect width="108" height="108" fill="#185FA5"/>
+    <text x="54.25" y="50.50" font-size="56" font-weight="700"
+      font-family='"Songti SC","STSong","Noto Serif CJK SC","Source Han Serif SC",serif'
+      fill="#F6F1E4" text-anchor="middle" dominant-baseline="central">字</text>
+  </svg>`;
+}
+// 单色层（主题图标）：只有 alpha，被系统着色
+function mono(size){
+  return `<svg width="${size}" height="${size}" viewBox="0 0 108 108">
+    <rect width="108" height="108" fill="#D9D2C2"/>
+    <text x="54.25" y="50.50" font-size="56" font-weight="700"
+      font-family='"Songti SC","STSong","Noto Serif CJK SC","Source Han Serif SC",serif'
+      fill="#2C2C2A" text-anchor="middle" dominant-baseline="central">字</text>
+  </svg>`;
+}
+
+document.getElementById('hero').innerHTML = mark(208);
+
+document.querySelectorAll('.slot').forEach(el => {
+  el.innerHTML = mark(+el.dataset.s);
+  el.style.lineHeight = 0;
+});
+
+document.querySelectorAll('.masked').forEach(el => {
+  const s = +el.dataset.s, shape = el.dataset.shape;
+  if (shape === 'mono') { el.innerHTML = mono(s); el.style.lineHeight = 0; return; }
+  const r = shape === 'circle' ? '50%' : shape === 'squircle' ? '30%' : shape === 'brand' ? '31%' : '22%';
+  el.innerHTML = `<div style="width:${s}px;height:${s}px;border-radius:${r};overflow:hidden;line-height:0">${mark(s)}</div>`;
+});
+
+// 组合版
+document.getElementById('lock-h').innerHTML = `
+<svg width="440" height="138" viewBox="0 0 320 100">
+  <rect x="8" y="14" width="72" height="72" rx="20" fill="#185FA5"/>
+  <text x="44.2" y="47.70" font-size="37.33" font-weight="700"
+    font-family='"Songti SC","STSong","Noto Serif CJK SC",serif'
+    fill="#F6F1E4" text-anchor="middle" dominant-baseline="central">字</text>
+  <text x="98" y="41" font-size="34" font-weight="600"
+    font-family='"Songti SC","STSong","Noto Serif CJK SC",serif'
+    fill="#2C2C2A" dominant-baseline="central">识字</text>
+  <text x="99" y="73" font-size="12" letter-spacing="2" fill="#8C8778"
+    dominant-baseline="central">拍照 · 点字 · 听读音</text>
+</svg>`;
+
+document.getElementById('lock-v').innerHTML = `
+<svg width="180" height="198" viewBox="0 0 200 220">
+  <rect width="200" height="220" fill="#FAF8F4"/>
+  <rect x="62" y="12" width="76" height="76" rx="24" fill="#185FA5"/>
+  <text x="100" y="47.58" font-size="39.41" font-weight="700"
+    font-family='"Songti SC","STSong","Noto Serif CJK SC",serif'
+    fill="#F6F1E4" text-anchor="middle" dominant-baseline="central">字</text>
+  <text x="100" y="136" font-size="30" font-weight="600"
+    font-family='"Songti SC","STSong","Noto Serif CJK SC",serif'
+    fill="#2C2C2A" text-anchor="middle" dominant-baseline="central">识 字</text>
+  <rect x="88" y="163" width="24" height="1" fill="#E3DAC6"/>
+  <text x="100" y="186" font-size="12" letter-spacing="2" fill="#8C8778"
+    text-anchor="middle" dominant-baseline="central">拍照 · 点字 · 听读音</text>
+</svg>`;
+
+// 否决稿
+const rejects = {
+  monoline: `<svg width="150" height="150" viewBox="0 0 108 108"><rect width="108" height="108" fill="#185FA5"/>
+    <g fill="none" stroke="#F6F1E4" stroke-width="5" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M54 26 V33"/><path d="M30 39 H78"/><path d="M30 39 L26 48"/>
+      <path d="M78 39 V48 Q78 50 71 49"/><path d="M38 60 H66 L54 71"/>
+      <path d="M56 60 V82 Q56 88 48 84"/><path d="M34 78 H74"/>
+    </g></svg>`,
+  frame: `<svg width="150" height="150" viewBox="0 0 108 108"><rect width="108" height="108" fill="#185FA5"/>
+    <g fill="none" stroke="#F6F1E4" stroke-opacity="0.55" stroke-width="3" stroke-linecap="round">
+      <path d="M30 42 V32 Q30 30 32 30 H42"/><path d="M66 30 H76 Q78 30 78 32 V42"/>
+      <path d="M78 66 V76 Q78 78 76 78 H66"/><path d="M42 78 H32 Q30 78 30 76 V66"/>
+    </g>
+    <text x="54" y="47" font-size="48" font-weight="700"
+      font-family='"Songti SC",serif' fill="#F6F1E4" text-anchor="middle" dominant-baseline="central">字</text></svg>`,
+  paper: `<svg width="150" height="150" viewBox="0 0 108 108"><rect width="108" height="108" fill="#F6F1E4"/>
+    <text x="54.25" y="50.50" font-size="56" font-weight="700"
+      font-family='"Songti SC",serif' fill="#185FA5" text-anchor="middle" dominant-baseline="central">字</text></svg>`,
+  ink: `<svg width="150" height="150" viewBox="0 0 108 108"><rect width="108" height="108" fill="#2C2C2A"/>
+    <text x="54.25" y="50.50" font-size="56" font-weight="700"
+      font-family='"Songti SC",serif' fill="#F6F1E4" text-anchor="middle" dominant-baseline="central">字</text></svg>`
+};
+document.querySelectorAll('[data-reject]').forEach(el => {
+  el.innerHTML = rejects[el.dataset.reject];
+  el.style.lineHeight = 0;
+});
+</script>
+</body>
+</html>

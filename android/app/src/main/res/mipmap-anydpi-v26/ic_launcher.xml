@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  自适应图标：背景是靛青色层，前层是纸白「字」。
+  前层只含字形（透明底），所以圆形 / 方圆 / 圆角矩形各种 mask 都不会切到色块边缘；
+  同一份字形另存为 monochrome，供 Android 13+ 主题图标取 alpha 着色。
+-->
+<adaptive-icon xmlns:android="http://schemas.android.com/apk/res/android">
+    <background android:drawable="@color/ic_launcher_background" />
+    <foreground android:drawable="@mipmap/ic_launcher_foreground" />
+    <monochrome android:drawable="@mipmap/ic_launcher_monochrome" />
+</adaptive-icon>

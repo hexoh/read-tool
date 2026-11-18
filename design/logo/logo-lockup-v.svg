@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 识字 · 竖版组合（启动页版式）：200×220，标记 76，比例与 ui/Splash.kt 一致 -->
+<svg xmlns="http://www.w3.org/2000/svg" width="200" height="220" viewBox="0 0 200 220">
+  <rect width="200" height="220" fill="#FAF8F4"/>
+  <rect x="62" y="12" width="76" height="76" rx="24" fill="#185FA5"/>
+  <text x="100" y="47.58" font-size="39.41" font-weight="bold"
+        font-family="Songti SC, STSong, Noto Serif CJK SC, Source Han Serif SC, serif"
+        fill="#F6F1E4" text-anchor="middle" dominant-baseline="central">字</text>
+  <text x="100" y="136" font-size="30" font-weight="600"
+        font-family="Songti SC, STSong, Noto Serif CJK SC, Source Han Serif SC, serif"
+        fill="#2C2C2A" text-anchor="middle" dominant-baseline="central">识 字</text>
+  <rect x="88" y="163" width="24" height="1" fill="#E3DAC6"/>
+  <text x="100" y="186" font-size="12" letter-spacing="2"
+        font-family="PingFang SC, Noto Sans CJK SC, sans-serif"
+        fill="#8C8778" text-anchor="middle" dominant-baseline="central">拍照 · 点字 · 听读音</text>
+</svg>

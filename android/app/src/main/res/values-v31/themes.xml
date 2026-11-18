@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  API 31+ 系统启动画面（Android 12 SplashScreen）。
+
+  Android 12 起系统启动画面是强制的，关不掉，只能决定它长什么样。
+  这里把它做成「看不见」：图标设为透明，只留纸色底（与 windowBackground、与
+  Compose 启动页同一个色值），于是系统画的是一屏纯纸色，**真正的启动页只有
+  ui/Splash.kt 那一页**——不会出现「大图标闪一下、换成小标记」的两段式。
+
+  代价：冷启动慢的机器上会先看到一屏空白纸色（这段时间系统还没画完第一帧）。
+  这是刻意的取舍：宁可空，不要同一个标记跳一次大小。
+
+  这里必须重复写基础项：values-v31 是整份 style 覆盖，不是增量合并。
+-->
+<resources>
+    <style name="Theme.ReadTool" parent="android:Theme.Material.Light.NoActionBar">
+        <item name="android:windowBackground">#FAF8F4</item>
+        <item name="android:statusBarColor">#FAF8F4</item>
+        <item name="android:windowLightStatusBar">true</item>
+        <item name="android:navigationBarColor">#FAF8F4</item>
+
+        <item name="android:windowSplashScreenBackground">#FAF8F4</item>
+        <item name="android:windowSplashScreenAnimatedIcon">@android:color/transparent</item>
+    </style>
+</resources>

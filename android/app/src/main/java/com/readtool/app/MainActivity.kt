@@ -9,6 +9,8 @@ import androidx.activity.compose.BackHandler
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.compose.setContent
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.compose.animation.Crossfade
+import androidx.compose.animation.core.tween
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -44,11 +46,11 @@ import com.readtool.app.ui.Bg
 import com.readtool.app.ui.CaptureScreen
 import com.readtool.app.ui.HistoryScreen
 import com.readtool.app.ui.HomeScreen
-import com.readtool.app.ui.Ink2
 import com.readtool.app.ui.LookupScreen
 import com.readtool.app.ui.ReadToolTheme
 import com.readtool.app.ui.ResultScreen
 import com.readtool.app.ui.SettingsScreen
+import com.readtool.app.ui.SplashScreen
 import com.readtool.app.ui.VocabScreen
 import com.readtool.domain.ContextJudge
 import com.readtool.domain.PageModel
@@ -74,25 +76,26 @@ data class PageUi(
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val store = Store(this)
         setContent {
             var data by remember { mutableStateOf<AppData?>(null) }
+            var store by remember { mutableStateOf<Store?>(null) }
+            // Store 构造要解析设置 / 纠错 / 生字本 / 历史四份 JSON，放在首帧之前会拖慢启动页出现；
+            // 和字库一起丢到后台，启动页反而是最先画出来的那一帧
             LaunchedEffect(Unit) {
+                store = withContext(Dispatchers.IO) { Store(applicationContext) }
                 data = withContext(Dispatchers.IO) { Assets.load(assets) }
             }
             ReadToolTheme {
-                val d = data
-                if (d == null) {
-                    Box(Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
-                        Column(horizontalAlignment = Alignment.CenterHorizontally) {
-                            CircularProgressIndicator(color = com.readtool.app.ui.Primary)
-                            Text("正在装入字库与发音包…", color = Ink2, fontSize = 12.sp, modifier = Modifier.padding(top = 12.dp))
-                        }
+                // 载入期间停在品牌启动页，载好后淡出 —— 不硬切，也不做假的等待动画
+                Crossfade(targetState = data, animationSpec = tween(260), label = "boot") { d ->
+                    val s = store
+                    if (d == null || s == null) {
+                        SplashScreen()
+                    } else {
+                        val player = remember { SoundPlayer(applicationContext, d.audio) }
+                        DisposableEffect(Unit) { onDispose { player.release() } }
+                        ReadToolApp(d, s, player)
                     }
-                } else {
-                    val player = remember { SoundPlayer(applicationContext, d.audio) }
-                    DisposableEffect(Unit) { onDispose { player.release() } }
-                    ReadToolApp(d, store, player)
                 }
             }
         }

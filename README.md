@@ -38,7 +38,7 @@ cd android
 android/                        ← 应用本体，唯一产物
   app/src/main/java/.../app/
     MainActivity.kt             入口：系统相机 / 相册 Intent、OCR 调度、页面状态
-    ui/                         Compose 界面：首页 / 拍照 / 结果页 / 查字 / 字卡 / 主题
+    ui/                         Compose 界面：启动页 / 首页 / 拍照 / 结果页 / 查字 / 字卡 / 主题
     ocr/OcrEngine.kt            端侧 OCR：检测 + 识别 + 竖排旋转 + 形近字纠错
     audio/SoundPlayer.kt        发音播放（SoundPool + TTS 兜底）
     render/PageRenderer.kt      把文字排成可点击样张（竖排 / 横排）
@@ -47,7 +47,7 @@ android/                        ← 应用本体，唯一产物
     models/                     PP-OCRv6 small：det 9.4MB + rec 20MB + keys.txt
     audio/{c,w}/                1436 条 m4a（运行时读取）
     data/                       7 个数据 json（运行时读取）
-  app/src/main/res/             主题、字符串、FileProvider 路径
+  app/src/main/res/             主题、自适应图标（mipmap-anydpi-v26）、字符串、FileProvider 路径
   domain/src/main/kotlin/       纯 Kotlin 领域层（零 Android 依赖）
     ReadingResolver / ContextJudge / HitTest / Forms / Readings / Model
   domain/src/test/              JUnit 测试（19 例）
@@ -75,8 +75,16 @@ tools/                          ← 数据与音频的"生产线"（不改数据
 docs/                           ← 规格与设计记录
   feature.md                    需求规格：功能要求 FR-101~505、产品红线 B-01~B-08
   ui-design.md                  UI 设计规格（色板被 Theme.kt 引用）
+  brand.md                      图标与启动页：标记几何、色彩、用法、资产与导出
   audio-pack.md                 音频索引契约与转正路径
   release.md                    打包与发版：签名、Secrets、本地打包、换机自检
+
+design/                         ← 品牌资产（改图标时用，日常开发不碰）
+  logo/                         主标记 / 前层 / 单色 / 横竖组合（SVG 母版）
+  preview.html                  一页看全：尺寸阶梯、桌面 mask、启动页、否决稿
+  render-icons.sh               SVG → res/mipmap-*、商店 512 图标、预览图
+  store/ play-icon-512.png      商店列表图标
+  out/                          文档与预览用图（1024 标记、横竖组合）
 ```
 
 > `docs/` 里的规格是 2026-11-16/17 的规划版本，实现过程中有调整（如读音默认策略）。

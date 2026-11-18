@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 识字 · 横版组合（关于页 / 文档页眉 / 商店截图） 画布 320×100，左边距 8，标记载体 72×72 -->
+<svg xmlns="http://www.w3.org/2000/svg" width="320" height="100" viewBox="0 0 320 100">
+  <rect x="8" y="14" width="72" height="72" rx="20" fill="#185FA5"/>
+  <text x="44.2" y="47.70" font-size="37.33" font-weight="bold"
+        font-family="Songti SC, STSong, Noto Serif CJK SC, Source Han Serif SC, serif"
+        fill="#F6F1E4" text-anchor="middle" dominant-baseline="central">字</text>
+  <text x="98" y="41" font-size="34" font-weight="600"
+        font-family="Songti SC, STSong, Noto Serif CJK SC, Source Han Serif SC, serif"
+        fill="#2C2C2A" dominant-baseline="central">识字</text>
+  <text x="99" y="73" font-size="12" letter-spacing="2"
+        font-family="PingFang SC, Noto Sans CJK SC, sans-serif"
+        fill="#8C8778" dominant-baseline="central">拍照 · 点字 · 听读音</text>
+</svg>

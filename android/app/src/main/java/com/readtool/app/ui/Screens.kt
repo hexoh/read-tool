@@ -73,7 +73,6 @@ fun TopBar(
 /* ---------------- 首页 ---------------- */
 @Composable
 fun HomeScreen(
-    data: AppData,
     store: Store,
     onCapture: () -> Unit,
     onPickImage: () -> Unit,
@@ -81,7 +80,6 @@ fun HomeScreen(
     onVocab: () -> Unit,
     onHistory: () -> Unit,
     onSettings: () -> Unit,
-    onSample: (PageSpec) -> Unit,
 ) {
     var query by remember { mutableStateOf("") }
     Column(Modifier.fillMaxSize().verticalScroll(rememberScrollState()).padding(horizontal = 20.dp)) {
@@ -89,7 +87,7 @@ fun HomeScreen(
         Text("识字", fontFamily = FontFamily.Serif, fontSize = 34.sp, color = Ink)
         Spacer(Modifier.height(8.dp))
         Text(
-            "拍下你手上的那页纸，逐字点选、听读音。\n本应用不提供任何经文，只帮你认字。",
+            "拍下你手上的那页纸，逐字点选、听读音。",
             fontSize = 13.sp, color = Ink2, lineHeight = 22.sp,
         )
         Spacer(Modifier.height(28.dp))
@@ -119,27 +117,7 @@ fun HomeScreen(
             QuickItem("设置", "读音与语音", Modifier.weight(1f), onSettings)
         }
 
-        Spacer(Modifier.height(26.dp))
-        Text("没有书页？用自带样张试一下", fontSize = 12.sp, color = Ink3)
-        Spacer(Modifier.height(8.dp))
-        Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-            data.demos.forEach { spec ->
-                Column(
-                    Modifier.weight(1f)
-                        .background(Paper, RoundedCornerShape(8.dp))
-                        .border(1.dp, LineC, RoundedCornerShape(8.dp))
-                        .clickable { onSample(spec) }
-                        .padding(10.dp),
-                ) {
-                    Text(if (spec.vertical) "竖排字表" else "横排说明文", fontSize = 12.sp, color = Ink)
-                    Text(spec.kind, fontSize = 11.sp, color = Ink3)
-                }
-            }
-        }
-        Text(
-            "样张由本应用即时排版生成，内容为识字字表与说明文。",
-            fontSize = 11.sp, color = Ink3, modifier = Modifier.padding(top = 8.dp, bottom = 28.dp),
-        )
+        Spacer(Modifier.height(28.dp))
     }
 }
 
@@ -423,8 +401,7 @@ fun SettingsScreen(data: AppData, store: Store, onBack: () -> Unit) {
             Spacer(Modifier.height(16.dp))
             GroupTitle("关于")
             Text(
-                "识字是一个离线识字工具：拍下你自己的一页纸，逐字点选听读音；也可以直接查单个字。\n" +
-                    "本应用不提供、不内置任何经文正文，也不做经文检索。读音以字典与审定记录为准。",
+                "识字是一个离线识字工具：拍下你自己的一页纸，逐字点选听读音；也可以直接查单个字。",
                 fontSize = 12.sp, color = Ink2, lineHeight = 20.sp,
             )
             Spacer(Modifier.height(28.dp))

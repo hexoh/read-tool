@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  识字 · 前层字形（透明底，纸白 #F6F1E4）
+  用于 Android 自适应图标的 foreground：底色由 background 色层给出，
+  mask 裁切时不切到背景，monochrome 主题图标也能复用同一形状。
+-->
+<svg xmlns="http://www.w3.org/2000/svg" width="108" height="108" viewBox="0 0 108 108">
+  <text x="54.25" y="50.50" font-size="56" font-weight="bold"
+        font-family="Songti SC, STSong, Noto Serif CJK SC, Source Han Serif SC, serif"
+        fill="#F6F1E4" text-anchor="middle" dominant-baseline="central">字</text>
+</svg>
